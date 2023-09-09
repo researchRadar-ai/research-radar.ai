@@ -2,8 +2,10 @@ import Error from 'next/error'
 import NextImage from 'next/image'
 import { useRouter } from 'next/navigation'
 import {
-  Button, Heading, VStack, Grid, GridItem, Card, CardHeader, CardBody, Flex, Box
+  Button, Heading, VStack, Grid, GridItem, Card, CardHeader, CardBody, Flex, Box,
+  Input, HStack
 } from '@chakra-ui/react'
+import { AddIcon } from '@chakra-ui/icons'
 import Header from '../components/Header'
 
 const text = {
@@ -42,34 +44,46 @@ export default function Project({ project, setProject }) {
     <main>
       <Header />
       <VStack px="5%" py={8} spacing={6} bg="#FEFCFB">
-        <Heading as="h2" fontSize="48px">{project.name}</Heading>
+        <Grid w="100%" templateColumns="6fr 4fr">
+          <GridItem>
+            <Heading as="h2" fontSize="48px">{project.name}</Heading>
+          </GridItem>
+          <GridItem display="flex" alignItems="center">
+            <Input placeholder="Type a keyword to search" />
+          </GridItem>
+        </Grid>
         {groupings.map(({ display, obj }) => (
           <VStack w="100%" spacing={2} key={display} display="flex" justifyContent="start">
-            <Heading as="h3" alignSelf="start">{display}</Heading>
+            <Flex w="100%" justifyContent="space-between">
+              <Heading as="h3" alignSelf="start" color="#034078">{display}</Heading>
+              <Button>View All</Button>
+            </Flex>
             <Grid
               w="100%"
               overflowX="auto"
+              overflowY="hidden"
               py={4}
               templateColumns="repeat(3, 400px)"
-              templateRows="max-content"
-              autoColumns="max-content"
+              templateRows="500px"
+              autoColumns="400px"
               autoFlow="column"
               bg="#FEFCFB"
             >
             {obj.map(({ id, title, authors, year, journal, abstract }) => (
-              <GridItem key={title} alignItems="center" justifyContent="center" display="flex"
+              <GridItem h="100%" key={id} alignItems="center" justifyContent="center" display="flex" position="relative"
               >
                 <Card
-                  h="max-content"
-                  w="85%"
-                >
-                  <CardHeader>{title}</CardHeader>
-                  {/* <CardBody
-                  position="relative"
-                  overflowY="hidden"
                   h="100%"
-                  ><Box position="absolute">{abstract}</Box></CardBody> */}
-                  <CardBody>{abstract}</CardBody>
+                  w="85%"
+                  position="absolute"
+                >
+                  <CardHeader position="relative">
+                    <Heading as="h4" color="#001F54" fontSize="24px" w="90%">{title}</Heading>
+                    <AddIcon boxSize={4} position="absolute" top={8} right={8} />
+                  </CardHeader>
+                  <CardBody h="100%" overflowY="hidden" mb={8}>
+                    {abstract}
+                  </CardBody>
                 </Card>
               </GridItem>
             ))}

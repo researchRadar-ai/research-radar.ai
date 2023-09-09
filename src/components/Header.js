@@ -11,7 +11,7 @@ export default function Header() {
       py={4}
       bg="#FEFCFB"
     >
-      <Heading as="h1" fontFamily="'Delius Swash Caps', cursive" fontSize="56px" color="#0A1128">
+      <Heading as="h1" fontFamily="'Delius Swash Caps', cursive" fontSize="56px" color="#1282A2">
         Research Radar
       </Heading>
       <Circle size="50px" bg="gray.400" />

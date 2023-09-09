@@ -3,7 +3,7 @@ import {
 } from '@chakra-ui/react'
 
 const headingTheme = defineStyleConfig({
-  defaultProps: { color: '#001F54' }
+  defaultProps: { color: '#0A1128' }
 })
 
 export const globalTheme = extendTheme({
