@@ -33,11 +33,30 @@ def main():
 
     print(document_dict.items())
 
-    get_keywords("mVcN4TkCWpvQ2g-9hxnI7Q", metaphor)
+    get_keywords("Ss0BdLzXGL5KQZ_b2PEygQ", metaphor)
 
 def get_keywords(document_id, metaphor):
     response = metaphor.get_contents(document_id)
-    print(response.contents[0].extract)
+    text = response.contents[0].extract
+
+    language = "en"
+    max_ngram_size = 3
+    deduplication_thresold = 0.9
+    deduplication_algo = 'seqm'
+    windowSize = 1
+    numOfKeywords = 10
+
+    kw_extractor = yake.KeywordExtractor(lan=language, 
+                                    n=max_ngram_size, 
+                                    dedupLim=deduplication_thresold, 
+                                    dedupFunc=deduplication_algo, 
+                                    windowsSize=windowSize, 
+                                    top=numOfKeywords)
+                                            
+    keywords = kw_extractor.extract_keywords(text)
+
+    for kw in keywords:
+        print(kw)
 
 
 if __name__ == '__main__':
