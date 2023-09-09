@@ -9,10 +9,9 @@ export default function Header() {
       px="3%"
       w="100%"
       py={4}
-      borderBottomWidth="1px"
-      borderColor="gray.200"
+      bg="#FEFCFB"
     >
-      <Heading as="h1" fontFamily="'Delius Swash Caps', cursive" fontSize="56px" color="#0D47A1">
+      <Heading as="h1" fontFamily="'Delius Swash Caps', cursive" fontSize="56px" color="#0A1128">
         Research Radar
       </Heading>
       <Circle size="50px" bg="gray.400" />
