@@ -54,14 +54,14 @@ def search():
             keyword_dict[result.title] = keywords
             url_dict[result.title] = result.url
         
-        print(url_dict)
+        #print(url_dict)
 
-        print(list(url_dict.values())[0])
-        similar_papers = get_similar_papers(list(url_dict.values())[0], metaphor)
+        #print(list(url_dict.values())[0])
+        similar_papers = sorted(get_similar_papers(list(url_dict.values())[0], metaphor))
 
-        print("Returning results...")
+        print("**************Returning results...**************")
         return jsonify({
-            "search_results": list(document_dict.keys()),
+            "search_results": sorted(list(document_dict.keys())),
             "similar_papers": similar_papers,
             "keywords": keyword_dict
         })
