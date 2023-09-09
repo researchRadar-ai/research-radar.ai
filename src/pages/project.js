@@ -3,7 +3,7 @@ import NextImage from 'next/image'
 import { useRouter } from 'next/navigation'
 import {
   Button, Heading, VStack, Grid, GridItem, Card, CardHeader, CardBody, Flex, Box,
-  Input, HStack
+  Input, HStack, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator
 } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
 import Header from '../components/Header'
@@ -44,6 +44,14 @@ export default function Project({ project, setProject }) {
     <main>
       <Header />
       <VStack px="5%" py={8} spacing={6} bg="#FEFCFB">
+        <Breadcrumb w="100%">
+          <BreadcrumbItem>
+            <BreadcrumbLink as="button" onClick={() => router.back()}>All</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbItem isCurrentPage>
+            <BreadcrumbLink as="button" disabled>{project.name}</BreadcrumbLink>
+          </BreadcrumbItem>
+        </Breadcrumb>
         <Grid w="100%" templateColumns="6fr 4fr">
           <GridItem>
             <Heading as="h2" fontSize="48px">{project.name}</Heading>
