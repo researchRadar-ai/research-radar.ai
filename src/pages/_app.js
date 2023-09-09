@@ -4,9 +4,9 @@ import { ChakraProvider, Flex } from '@chakra-ui/react'
 import { globalTheme } from '../styles/ChakraTheme'
 
 export default function App({ Component, pageProps }) {
-  const [projectId, setProjectId] = useState(null);
+  const [project, setProject] = useState(null)
 
   return (<ChakraProvider theme={globalTheme}>
-    <Component projectId={projectId} setProjectId={setProjectId} {...pageProps} />
+    <Component project={project} setProject={setProject} {...pageProps} />
   </ChakraProvider>);
 }

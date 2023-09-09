@@ -21,52 +21,49 @@ const projects = [{
   imgUrl: aiImg,
 }]
 
-export default function Home({ setProjectId }) {
+export default function Home({ setProject }) {
   const router = useRouter()
 
   return (
-    <>
-      <Head>
-        <title>Research Radar</title>
-        <meta name="description" content="Reimagining Research." />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <main>
-        <Header />
-        <Grid px="5%" py={12} templateColumns="repeat(3, 1fr)" templateRows="400px" autoRows="400px" bg="#FEFCFB">
-          {projects.map(({ id, name, imgUrl }) => (
-            <GridItem key={id} alignItems="center" justifyContent="center" display="flex">
-              <Card h="100%" w="85%" h="90%" onClick={() => { setProjectId(id); router.push('/project')} }>
-                <CardBody>
-                  <Grid h="100%" templateRows="7fr 3fr">
-                    <GridItem w="100%" h="100%" position="relative">
-                      <NextImage src={imgUrl} alt={name} fill />
-                    </GridItem>
-                    <GridItem display="flex" alignItems="center">
-                      <Heading as="h3">{name}</Heading>
-                    </GridItem>
-                  </Grid>
-                </CardBody>
-              </Card>
-            </GridItem>
-          ))}
-          <GridItem alignItems="center" justifyContent="center" display="flex">
-            <Card h="100%" w="85%" h="90%">
+    <main>
+      <Header />
+      <Grid px="5%" py={12} templateColumns="repeat(3, 1fr)" templateRows="400px" autoRows="400px" bg="#FEFCFB">
+        {projects.map(({ id, name, imgUrl }) => (
+          <GridItem key={id} alignItems="center" justifyContent="center" display="flex">
+            <Card
+              h="100%"
+              w="85%"
+              h="90%"
+              onClick={() => { setProject({ id, name, imgUrl }); router.push('/project')} }
+            >
               <CardBody>
                 <Grid h="100%" templateRows="7fr 3fr">
-                  <GridItem display="flex" alignItems="center" justifyContent="center">
-                    <AddIcon boxSize={12} color="#001F54" />
+                  <GridItem w="100%" h="100%" position="relative">
+                    <NextImage src={imgUrl} alt={name} fill />
                   </GridItem>
-                  <GridItem display="flex" alignItems="center" justifyContent="center">
-                    Create a new project
+                  <GridItem display="flex" alignItems="center">
+                    <Heading as="h3">{name}</Heading>
                   </GridItem>
                 </Grid>
               </CardBody>
             </Card>
           </GridItem>
-        </Grid>
-      </main>
-    </>
+        ))}
+        <GridItem alignItems="center" justifyContent="center" display="flex">
+          <Card h="100%" w="85%" h="90%">
+            <CardBody>
+              <Grid h="100%" templateRows="7fr 3fr">
+                <GridItem display="flex" alignItems="center" justifyContent="center">
+                  <AddIcon boxSize={12} color="#001F54" />
+                </GridItem>
+                <GridItem display="flex" alignItems="center" justifyContent="center">
+                  Create a new project
+                </GridItem>
+              </Grid>
+            </CardBody>
+          </Card>
+        </GridItem>
+      </Grid>
+    </main>
   )
 }
