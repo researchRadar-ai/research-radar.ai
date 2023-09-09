@@ -26,24 +26,50 @@ def main():
     # Metaphor API call
     response = metaphor.search(user, num_results=10, 
                             include_domains=["scholar.google.com", "jstor.org", "ncbi.nlm.nih.gov", "springer.com", "ieeexplore.ieee.org", "sciencedirect.com", "onlinelibrary.wiley.com", "nature.com", "pnas.org", "arxiv.org", "frontiersin.org", "dl.acm.org"],
-                            start_published_date=str(one_year_ago), 
+                            start_crawl_date=str(one_year_ago), 
                             use_autoprompt=True,)
 
     # create a hashmap to store
     # key = article title
-    # value = article id
+    # value = article id, keywords YAKE, article url
     document_dict = defaultdict(str)
+    keyword_dict = defaultdict(list)
+    url_dict = defaultdict(str)
+
     for result in response.results:
         #print(result.title, result.url, result.id)
         #print()
 
         document_dict[result.title] = result.id
         keywords = get_keywords(str(document_dict[result.title]), metaphor)
-        print(keywords)
+        keyword_dict[result.title] = keywords
+        url_dict[result.title] = result.url
+    
+    print(url_dict)
+
+    print(list(url_dict.values())[0])
+    get_similar_papers(list(url_dict.values())[0], metaphor)
 
     #print(document_dict.items())
 
     
+
+def get_similar_papers(document_url, metaphor):
+    # grab the most relevant results
+    # Metaphor API will return results that are within one year of the publish date
+    today = datetime.date.today()
+    one_year_ago = today - datetime.timedelta(days=365)
+
+    # Metaphor API call
+    response = metaphor.find_similar(str(document_url), num_results=10, 
+                            include_domains=["scholar.google.com", "jstor.org", "ncbi.nlm.nih.gov", "springer.com", "ieeexplore.ieee.org", "sciencedirect.com", "onlinelibrary.wiley.com", "nature.com", "pnas.org", "arxiv.org", "frontiersin.org", "dl.acm.org"],
+                            start_crawl_date=str(one_year_ago),)
+    
+    similar_urls_lst = []
+    for result in response.results:
+        similar_urls_lst.append(result.url)
+    print("SIMILAR PAPERS: " + str(similar_urls_lst))
+    return similar_urls_lst
 
 def get_keywords(document_id, metaphor):
 
