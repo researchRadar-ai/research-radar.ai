@@ -30,10 +30,12 @@ def main():
         print()
 
         document_dict[result.title] = result.id
+        keywords = get_keywords(str(document_dict[result.title]), metaphor)
+        return keywords
 
-    print(document_dict.items())
+    #print(document_dict.items())
 
-    get_keywords("Ss0BdLzXGL5KQZ_b2PEygQ", metaphor)
+    
 
 def get_keywords(document_id, metaphor):
     response = metaphor.get_contents(document_id)
@@ -55,8 +57,11 @@ def get_keywords(document_id, metaphor):
                                             
     keywords = kw_extractor.extract_keywords(text)
 
-    for kw in keywords:
-        print(kw)
+    important_words = []
+    for kw, score in keywords:
+        important_words.append(kw)
+
+    return important_words
 
 
 if __name__ == '__main__':
