@@ -33,7 +33,7 @@ const text = {
   urna. Maecenas pharetra convallis posuere morbi leo urna molestie at. Leo urna
   molestie at elementum eu facilisis.`
 }
-const recommended = [text, text, text, text, text]
+// const recommended = [text, text, text, text, text]
 
 
 
@@ -45,6 +45,7 @@ export default function Project({ project, setQuery }) {
 
   const [saved, setSaved] = useState([]); // array of saved papers
   const [toRead, setToRead] = useState([]); // array of to read papers
+  const [recommended, setRecommended] = useState([]); // array of recommended papers [TODO
   const [groupings, setGroupings] = useState([]); // list of groupings to organize data
 
   useEffect(() => {
@@ -76,11 +77,27 @@ export default function Project({ project, setQuery }) {
       return response.json();
     };
 
+    const fetchRecommendedData = async () => {
+      const response = await fetch('/api/project/list_papers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          project_id: project.id,
+          type: 'recommend',
+        }),
+      });
+      return response.json();
+    };
+
+
     (async () => {
       try {
-        const [toReadData, savedData] = await Promise.all([fetchToReadData(), fetchSavedData()]);
+        const [toReadData, savedData, recommendData] = await Promise.all([fetchToReadData(), fetchSavedData(), fetchRecommendedData()]);
         setToRead(toReadData);
         setSaved(savedData);
+        setRecommended(recommendData);
       } catch(e) {
         console.log(e);
       }

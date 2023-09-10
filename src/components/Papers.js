@@ -55,6 +55,7 @@ export default function Papers({ project, pg, display, query }) {
         .then(response => response.json())
         .then(data => setPapers(data));
     }
+
   }, []);
   const [currentPage, setCurrentPage] = useState(1);
 
