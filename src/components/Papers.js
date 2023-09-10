@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head'
 import Header from '../components/Header'
 import { useRouter } from 'next/router'
@@ -6,7 +6,6 @@ import {
   VStack, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator,
   Heading, Text, HStack, Button
 } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
 
 const PER_PAGE = 5;
 
