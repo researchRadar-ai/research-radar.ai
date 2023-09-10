@@ -1,6 +1,6 @@
 // /** @type {import('next').NextConfig} */
 // const nextConfig = {
-  
+
 // }
 
 // module.exports = nextConfig
@@ -10,7 +10,7 @@ module.exports = () => {
     return [
       {
         source: '/api/:path*',
-        destination: 'http://localhost:5000/api/:path*', // Proxy to Flask backend
+        destination: 'http://127.0.0.1:5000/api/:path*', // Proxy to Flask backend
       },
     ];
   };
