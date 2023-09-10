@@ -41,7 +41,7 @@ def search():
         # create a hashmap to store
         # key = article title
         # value = article id, keywords YAKE, article url
-        document_dict = defaultdict(str)
+        document_id_dict = defaultdict(str)
         keyword_dict = defaultdict(list)
         url_dict = defaultdict(str)
 
@@ -49,74 +49,33 @@ def search():
             #print(result.title, result.url, result.id)
             #print()
 
-            document_dict[result.title] = result.id
-            keywords = get_keywords(str(document_dict[result.title]), metaphor)
+            document_id_dict[result.title] = result.id
+            keywords = get_keywords(str(document_id_dict[result.title]), metaphor)
             keyword_dict[result.title] = keywords
             url_dict[result.title] = result.url
         
         #print(url_dict)
 
         #print(list(url_dict.values())[0])
+        search_results = sorted(list(document_id_dict.keys()))
         similar_papers = sorted(get_similar_papers(list(url_dict.values())[0], metaphor))
 
         print("**************Returning results...**************")
         return jsonify({
-            "search_results": sorted(list(document_dict.keys())),
+            "search_results": search_results,
             "similar_papers": similar_papers,
             "keywords": keyword_dict
         })
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
-
-def main():
-    # load the Metaphor API key from .env file
-    load_dotenv()
-    METAPHOR_API_KEY = os.getenv('METAPHOR_API_KEY')
-    metaphor = Metaphor(api_key=METAPHOR_API_KEY)
-
-    # user inputs phrase they want to search
-    user = input("What are you looking for? ")
-    print()
-    print("Here are your results!")
-
-    # grab the most relevant results
-    # Metaphor API will return results that are within one year of the publish date
-    today = datetime.date.today()
-    one_year_ago = today - datetime.timedelta(days=365)
-
-    # Metaphor API call
-    response = metaphor.search(user, num_results=10, 
-                            include_domains=["scholar.google.com", "jstor.org", "ncbi.nlm.nih.gov", "springer.com", "ieeexplore.ieee.org", "sciencedirect.com", "onlinelibrary.wiley.com", "nature.com", "pnas.org", "arxiv.org", "frontiersin.org", "dl.acm.org"],
-                            start_crawl_date=str(one_year_ago), 
-                            use_autoprompt=True,)
-
-    # create a hashmap to store
-    # key = article title
-    # value = article id, keywords YAKE, article url
-    document_dict = defaultdict(str)
-    keyword_dict = defaultdict(list)
-    url_dict = defaultdict(str)
-
-    for result in response.results:
-        #print(result.title, result.url, result.id)
-        #print()
-
-        document_dict[result.title] = result.id
-        keywords = get_keywords(str(document_dict[result.title]), metaphor)
-        keyword_dict[result.title] = keywords
-        url_dict[result.title] = result.url
-    
-    print(url_dict)
-
-    print(list(url_dict.values())[0])
-    get_similar_papers(list(url_dict.values())[0], metaphor)
-
-    #print(document_dict.items())
-
     
 
 def get_similar_papers(document_url, metaphor):
+    """
+    function takes in two arguments: the URL of the research paper and the metaphor API object
+
+    Returns a list of URLs in which their similarity is most relevant to the search phrase
+    """
     # grab the most relevant results
     # Metaphor API will return results that are within one year of the publish date
     today = datetime.date.today()
@@ -130,10 +89,17 @@ def get_similar_papers(document_url, metaphor):
     similar_urls_lst = []
     for result in response.results:
         similar_urls_lst.append(result.url)
-    print("SIMILAR PAPERS: " + str(similar_urls_lst))
+    #print("SIMILAR PAPERS: " + str(similar_urls_lst))
     return similar_urls_lst
 
 def get_keywords(document_id, metaphor):
+    """
+    Uses the Yet Another Keyword Extractor (YAKE) Python library to extract the most important keywords of a provided text input
+
+    function takes in two arguments: the document id provided by the Metaphor API and the Metaphor API object
+
+    Returns a list of most relevant keywords as calculated by YAKE
+    """
 
     # Metaphor API call
     response = metaphor.get_contents(document_id)
