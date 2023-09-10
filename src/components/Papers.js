@@ -50,8 +50,8 @@ export default function Papers({ project, pg, display }) {
           {papers.map(({ id, title, authors, year, journal, abstract }) => (
             <VStack w="100%" spacing={4} key={id}>
               <Heading as="h3" color="#034078" fontFamily="'Yantramanav', sans-serif" w="100%">{title}</Heading>
-              <Text w="100%">{authors}</Text>
-              <Text w="100%">{`${journal}, ${year}`}</Text>
+              <Text w="100%" as='i' color='#0A1128'>{authors}</Text>
+              <Text w="100%" as='b' color='#034078'>{`${journal}, ${year}`}</Text>
               <Text w="100%">{abstract}</Text>
               <HStack w="100%" spacing={4}>
                 <Button variant="brightBg">Read Now</Button>
