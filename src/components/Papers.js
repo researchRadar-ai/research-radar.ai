@@ -5,6 +5,7 @@ import {
   VStack, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator,
   Heading, Text, HStack, Button
 } from '@chakra-ui/react'
+import { useEffect, useState } from 'react'
 
 const text = {
   id: 123,
@@ -26,10 +27,43 @@ const text = {
   urna. Maecenas pharetra convallis posuere morbi leo urna molestie at. Leo urna
   molestie at elementum eu facilisis.`
 }
-const papers = [text, text, text, text, text, text, text, text, text, text]
+// const papers = [text, text, text, text, text, text, text, text, text, text]
 
 export default function Papers({ project, pg, display }) {
   const router = useRouter()
+
+  const [papers, setPapers] = useState([text]); // array of papers
+
+  useEffect(() => {
+    if (pg == "Saved"){
+      fetch('/api/project/list_papers', {
+        method: 'POST', 
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          project_id: project.id,
+          type: 'saved',
+        }),
+      })
+        .then(response => response.json())
+        .then(data => setPapers(data));
+    }
+    else if (pg == "To-Read"){
+      fetch('/api/project/list_papers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          project_id: project.id,
+          type: 'toread',
+        }),
+      })
+        .then(response => response.json())
+        .then(data => setPapers(data));
+    }
+  }, []);
 
   return (
     <>
@@ -68,6 +102,7 @@ export default function Papers({ project, pg, display }) {
               </VStack>
             ))}
           </VStack>
+          <Button variant="brightBg" onClick={() => { router.back() }}>Back</Button>
         </VStack>
       </main>
     </>

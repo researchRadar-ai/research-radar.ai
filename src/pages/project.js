@@ -166,7 +166,7 @@ export default function Project({ project }) {
               ))}
               </Grid>
             </VStack>))}
-          <Button variant="brightBg" onClick={() => { router.back() }}>Back</Button>
+          <Button variant="mdDarkFont" onClick={() => { router.back() }}>Back</Button>
         </VStack>
       </main>
     </>
