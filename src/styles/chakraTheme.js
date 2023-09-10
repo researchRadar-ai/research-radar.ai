@@ -1,6 +1,12 @@
 import {
-  extendTheme, defineStyle, defineStyleConfig
+  extendTheme, defineStyle, defineStyleConfig, createMultiStyleConfigHelpers
 } from '@chakra-ui/react'
+import { inputAnatomy } from '@chakra-ui/anatomy'
+
+const {
+  definePartsStyle, defineMultiStyleConfig
+} = createMultiStyleConfigHelpers(inputAnatomy.keys)
+
 
 const headingTheme = defineStyleConfig({
   defaultProps: { color: '#0A1128' }
@@ -30,10 +36,28 @@ const buttonTheme = defineStyleConfig({
   }
 })
 
+const inputTheme = defineMultiStyleConfig({
+  variants: {
+    flushed: definePartsStyle({
+      field: {
+        borderBottom: '1px solid',
+        borderColor: '#001F54',
+        _focus: {
+          borderColor: '#0A1128',
+          boxShadow: '0px 1px 0px 0px #0A1128'
+        },
+        fontFamily: `'proxima-nova', sans-serif`,
+        fontSize: { base: '16px', sm:'18px', md: '20px' },
+      }
+    }),
+  }
+})
+
 export const globalTheme = extendTheme({
   components: {
     Heading: headingTheme,
     Button: buttonTheme,
+    Input: inputTheme,
   },
   fonts: {
     heading: "'Unna', serif"

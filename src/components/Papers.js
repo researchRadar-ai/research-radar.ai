@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import Header from '../components/Header'
 import { useRouter } from 'next/navigation'
 import {
@@ -31,36 +32,44 @@ export default function Papers({ project, pg, display }) {
   const router = useRouter()
 
   return (
-    <main>
-      <Header />
-      <VStack px="5%" py={8} spacing={6} bg="#FEFCFB">
-        <Breadcrumb w="100%">
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/">All</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbItem>
-            <BreadcrumbLink as="button" onClick={() => router.back()}>{project.name}</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbItem isCurrentPage>
-            <BreadcrumbLink as="button" disabled>{pg}</BreadcrumbLink>
-          </BreadcrumbItem>
-        </Breadcrumb>
-        <Heading as="h2" fontSize="48px" w="100%">{display}</Heading>
-        <VStack w="100%" spacing={8}>
-          {papers.map(({ id, title, authors, year, journal, abstract }) => (
-            <VStack w="100%" spacing={4} key={id}>
-              <Heading as="h3" color="#034078" fontFamily="'Yantramanav', sans-serif" w="100%">{title}</Heading>
-              <Text w="100%">{authors}</Text>
-              <Text w="100%">{`${journal}, ${year}`}</Text>
-              <Text w="100%">{abstract}</Text>
-              <HStack w="100%" spacing={4}>
-                <Button variant="brightBg">Read Now</Button>
-                <Button variant="mdDarkFont">Read Later</Button>
-              </HStack>
-            </VStack>
-          ))}
+    <>
+      <Head>
+        <title>Research Radar | {pg}</title>
+        <meta name="description" content="Reimagining Research." />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+        <main>
+        <Header />
+        <VStack px="5%" py={8} spacing={6} bg="#FEFCFB">
+          <Breadcrumb w="100%">
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">All</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbItem>
+              <BreadcrumbLink as="button" onClick={() => router.back()}>{project.name}</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbItem isCurrentPage>
+              <BreadcrumbLink as="button" disabled>{pg}</BreadcrumbLink>
+            </BreadcrumbItem>
+          </Breadcrumb>
+          <Heading as="h2" fontSize="48px" w="100%">{display}</Heading>
+          <VStack w="100%" spacing={8}>
+            {papers.map(({ id, title, authors, year, journal, abstract }) => (
+              <VStack w="100%" spacing={4} key={id}>
+                <Heading as="h3" color="#034078" fontFamily="'Yantramanav', sans-serif" w="100%">{title}</Heading>
+                <Text w="100%">{authors}</Text>
+                <Text w="100%">{`${journal}, ${year}`}</Text>
+                <Text w="100%">{abstract}</Text>
+                <HStack w="100%" spacing={4}>
+                  <Button variant="brightBg">Read Now</Button>
+                  <Button variant="mdDarkFont">Read Later</Button>
+                </HStack>
+              </VStack>
+            ))}
+          </VStack>
         </VStack>
-      </VStack>
-    </main>
+      </main>
+    </>
   )
 }
