@@ -11,21 +11,20 @@ const buttonTheme = defineStyleConfig({
     darkBg: defineStyle({
       bg: '#0A1128',
       color: '#FFFFFF',
-      px: 8,
-      borderRadius: '5%',
+      borderRadius: '10px',
     }),
     mdDarkFont: defineStyle({
       bg:'transparent',
       color: '#034078',
       border: '1px solid #0A1128',
+      borderRadius: '10px',
       px: 8,
-      borderRadius: '5%',
     }),
     brightBg: defineStyle({
       bg: '#1282A2',
       color: '#FEFCFB',
+      borderRadius: '10px',
       px: 8,
-      borderRadius: '5%',
     })
   }
 })

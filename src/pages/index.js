@@ -27,7 +27,7 @@ export default function Home({ project, setProject }) {
   return (
     <main>
       <Header />
-      <Heading pt={6} as="h2" fontSize="48px" px="5%">Your Research Projects</Heading>
+      <Heading bg="#FEFCFB" pt={6} as="h2" fontSize="48px" px="5%">Your Research Projects</Heading>
       <Grid px="5%" pb={12} templateColumns="repeat(3, 1fr)" templateRows="400px" autoRows="400px" bg="#FEFCFB">
         {projects.map(({ id, name, imgUrl }) => (
           <GridItem key={id} alignItems="center" justifyContent="center" display="flex">
@@ -36,6 +36,9 @@ export default function Home({ project, setProject }) {
               w="85%"
               h="90%"
               onClick={() => { setProject({ id, name, imgUrl }); router.push('/project')} }
+              cursor="pointer"
+              _hover={{ transform: 'scale(1.07)' }}
+              className="card"
             >
               <CardBody>
                 <Grid h="100%" templateRows="7fr 3fr">
@@ -51,7 +54,15 @@ export default function Home({ project, setProject }) {
           </GridItem>
         ))}
         <GridItem alignItems="center" justifyContent="center" display="flex">
-          <Card h="100%" w="85%" h="90%">
+          <Card
+            h="100%"
+            w="85%"
+            h="90%"
+            onClick={() => router.push('/create')}
+            cursor="pointer"
+            _hover={{ transform: 'scale(1.07)' }}
+            className="card"
+          >
             <CardBody>
               <Grid h="100%" templateRows="7fr 3fr">
                 <GridItem display="flex" alignItems="center" justifyContent="center">
