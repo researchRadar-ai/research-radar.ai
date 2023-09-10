@@ -27,11 +27,11 @@ export default  function Create() {
       <main>
         <Header />
         <VStack w="100%" h="80vh" minHeight="500px" spacing={16} display="flex" alignItems="center" pt="5%" bg="#FEFCFB">
-          <Heading as="h4" color="#001F54" fontSize="24px" px="25%">Embark on your next journey of discovery now</Heading>
+          <Heading as="h4" color="#034078" fontSize="24px" px="25%">Embark on your next journey of discovery now</Heading>
           <form onSubmit={onSubmit} style={formStyle}>
             <Flex w="60%" flexDirection="column" alignItems="center" justifyContent="center">
-              <Input size="lg" mb={6} type="text" placeholder="What is the name of your new project?" />
-              <Input size="lg" mt={6} mb={6} type="text" placeholder="Start by typing in your first query" />
+              <Input variant="custom" size="lg" mb={6} type="text" placeholder="What is the name of your new project?" />
+              <Input variant="custom" size="lg" mt={6} mb={6} type="text" placeholder="Start by typing in your first query" />
               <Text fontStyle="italic">Hit enter to create your new project & search!</Text>
             </Flex>
             <button type="submit" visibility="hidden" />

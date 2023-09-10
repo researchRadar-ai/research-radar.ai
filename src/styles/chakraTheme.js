@@ -38,16 +38,19 @@ const buttonTheme = defineStyleConfig({
 
 const inputTheme = defineMultiStyleConfig({
   variants: {
-    flushed: definePartsStyle({
+    custom: definePartsStyle({
       field: {
+        bg: 'transparent',
         borderBottom: '1px solid',
-        borderColor: '#001F54',
+        borderColor: '#034078',
+        borderRadius: 0,
+        color: '#0A1128',
         _focus: {
-          borderColor: '#0A1128',
-          boxShadow: '0px 1px 0px 0px #0A1128'
+          borderColor: '#001F54',
+          boxShadow: '0px 1px 0px 0px #001F54'
         },
-        fontFamily: `'proxima-nova', sans-serif`,
-        fontSize: { base: '16px', sm:'18px', md: '20px' },
+        fontFamily: `'Unna', serif`,
+        fontSize: '20px'
       }
     }),
   }

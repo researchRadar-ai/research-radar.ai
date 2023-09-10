@@ -102,7 +102,7 @@ export default function Project({ project }) {
               <Heading as="h2" fontSize="48px">{project.name}</Heading>
             </GridItem>
             <GridItem display="flex" alignItems="center">
-              <Input variant="flushed" placeholder="Type a keyword to search" />
+              <Input variant="variant" placeholder="Type a keyword to search" />
             </GridItem>
           </Grid>
           {groupings.map(({ display, obj, href }) => (
