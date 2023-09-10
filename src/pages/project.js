@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import {
   Button, Heading, VStack, Grid, GridItem, Card, CardHeader, CardBody, Flex, Box,
   Input, HStack, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator,
-  Link
+  Link,
 } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
 import Header from '../components/Header'
@@ -78,6 +78,7 @@ export default function Project({ project }) {
               autoColumns="400px"
               autoFlow="column"
               bg="#FEFCFB"
+              className="scrollCards"
             >
             {obj.map(({ id, title, authors, year, journal, abstract }) => (
               <GridItem h="100%" key={id} alignItems="center" justifyContent="center" display="flex" position="relative"
@@ -91,15 +92,16 @@ export default function Project({ project }) {
                     <Heading as="h4" color="#001F54" fontSize="24px" w="90%">{title}</Heading>
                     <AddIcon boxSize={4} position="absolute" top={8} right={8} />
                   </CardHeader>
-                  <CardBody h="100%" overflowY="hidden" mb={8}>
+                  <CardBody h="100%" overflowY="hidden" mb={8} position="relative">
                     {abstract}
                   </CardBody>
+                  <Button w="max-content" variant="darkBg" position="absolute" bottom={4} left="31%">Read More</Button>
                 </Card>
               </GridItem>
             ))}
             </Grid>
           </VStack>))}
-        <Button onClick={() => { router.back() }}>Back</Button>
+        <Button variant="brightBg" onClick={() => { router.back() }}>Back</Button>
       </VStack>
     </main>
   )
