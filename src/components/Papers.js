@@ -44,16 +44,13 @@ export default function Papers({ project, pg, display, query }) {
         .then(data => setPapers(data));
     }
     else if (pg === "Query") {
-      console.log('<------', query);
-      fetch('/api/search', {
+      let url = `/api/search?query=${query}`;
+      if (project !== null) url = url.concat(`&project_id=${project.id}`);
+      fetch(url, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
-        },
-        params: JSON.stringify({
-          project_id: project !== null ? project.id : null,
-          query,
-        }),
+        }
       })
         .then(response => response.json())
         .then(data => setPapers(data));
@@ -75,9 +72,9 @@ export default function Papers({ project, pg, display, query }) {
         <main>
         <Header />
         <VStack px="5%" py={8} spacing={6} bg="#FEFCFB">
-          <Breadcrumb w="100%">
-            {project !== null ? (
-              <>
+
+            {pg !== 'Query' ? (
+              <Breadcrumb w="100%">
                 <BreadcrumbItem>
                   <BreadcrumbLink href="/">All</BreadcrumbLink>
                 </BreadcrumbItem>
@@ -87,14 +84,11 @@ export default function Papers({ project, pg, display, query }) {
                 <BreadcrumbItem isCurrentPage>
                   <BreadcrumbLink as="button" disabled>{pg}</BreadcrumbLink>
                 </BreadcrumbItem>
-              </>
+              </Breadcrumb>
             )
-            : (<BreadcrumbItem>
-                <BreadcrumbLink href="/">Query</BreadcrumbLink>
-              </BreadcrumbItem>
-            )
+            : null
           }
-          </Breadcrumb>
+
           <Heading as="h2" fontSize="48px" w="100%">{display}</Heading>
         <VStack key={currentPage} px="5%" py={8} spacing={6} bg="#FEFCFB">
           <VStack w="100%" spacing={8}>

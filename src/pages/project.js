@@ -125,10 +125,11 @@ export default function Project({ project, setQuery }) {
             <GridItem>
               <Heading as="h2" fontSize="48px">{project.name}</Heading>
             </GridItem>
-            <GridItem display="flex" alignItems="center">
-              <form onSubmit={handleSubmit(handleSearch)}>
-                <FormControl>
+            <GridItem display="flex" alignItems="center" w="100%">
+              <form onSubmit={handleSubmit(handleSearch)} style={{ width: '100%' }}>
+                <FormControl display="flex" w="100%">
                   <Input
+                    w="100%"
                     variant="custom"
                     isInvalid={errors}
                     placeholder="Type a keyword to search"
@@ -156,7 +157,7 @@ export default function Project({ project, setQuery }) {
                 bg="#FEFCFB"
                 className="scrollCards"
               >
-              {obj.map(({ id, title, authors, year, journal, abstract }) => (
+              {obj.length > 0 && obj.map(({ id, title, authors, year, journal, abstract }) => (
                 <GridItem h="100%" key={id} alignItems="center" justifyContent="center" display="flex" position="relative"
                 >
                   <Card
@@ -175,6 +176,7 @@ export default function Project({ project, setQuery }) {
                   </Card>
                 </GridItem>
               ))}
+              {obj.length === 0 && (<Heading as="h4" color="#001F54" fontSize="24px">You currently don't have any articles under this category.</Heading>)}
               </Grid>
             </VStack>))}
           <Button variant="mdDarkFont" onClick={() => { router.back() }}>Back</Button>
