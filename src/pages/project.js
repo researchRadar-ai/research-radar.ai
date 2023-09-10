@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useForm } from 'react-hook-form'
 import Error from 'next/error'
 import Head from 'next/head'
 import NextImage from 'next/image'
@@ -7,7 +8,7 @@ import { useRouter } from 'next/navigation'
 import {
   Button, Heading, VStack, Grid, GridItem, Card, CardHeader, CardBody, Flex, Box,
   Input, HStack, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator,
-  Link,
+  Link, FormControl,
 } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
 import Header from '../components/Header'
@@ -33,15 +34,15 @@ const text = {
   molestie at elementum eu facilisis.`
 }
 const recommended = [text, text, text, text, text]
-// const saved = [text, text, text, text, text]
-// const toRead = [text, text, text, text, text]
 
 
 
-export default function Project({ project }) {
-  if (project == null) return (<Error statusCode={400} />)
+export default function Project({ project, setQuery }) {
+  if (project === null) return (<Error statusCode={400} />)
 
   const router = useRouter()
+  const { register, handleSubmit, formState: { errors }} = useForm({ mode: 'onSubmit '});
+
   const [saved, setSaved] = useState([]); // array of saved papers
   const [toRead, setToRead] = useState([]); // array of to read papers
   const [groupings, setGroupings] = useState([]); // list of groupings to organize data
@@ -49,7 +50,7 @@ export default function Project({ project }) {
   useEffect(() => {
     const fetchSavedData = async () => {
       const response = await fetch('/api/project/list_papers', {
-        method: 'POST', 
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
@@ -60,7 +61,7 @@ export default function Project({ project }) {
       });
       return response.json();
     };
-  
+
     const fetchToReadData = async () => {
       const response = await fetch('/api/project/list_papers', {
         method: 'POST',
@@ -72,18 +73,14 @@ export default function Project({ project }) {
           type: 'toread',
         }),
       });
-      console.log('-----> response: ', response);
       return response.json();
     };
-  
+
     (async () => {
       try {
         const [toReadData, savedData] = await Promise.all([fetchToReadData(), fetchSavedData()]);
         setToRead(toReadData);
         setSaved(savedData);
-        console.log('-----> saved: ', savedData);
-        console.log('-----> toRead: ', toReadData);
-      
       } catch(e) {
         console.log(e);
       }
@@ -96,9 +93,14 @@ export default function Project({ project }) {
       { display: 'Your Saved Articles', obj: saved, href: '/saved' },
       { display: 'Your To-Read Articles', obj: toRead, href: '/to-read' }
     ]);
-    console.log('-----> grouping: ', groupings);
   }, [saved, toRead]);
 
+  const handleSearch = ({ query }) => {
+    if (query.length > 0) {
+      setQuery(query.trim());
+      router.push('/query');
+    }
+  }
 
   return (
     <>
@@ -124,7 +126,16 @@ export default function Project({ project }) {
               <Heading as="h2" fontSize="48px">{project.name}</Heading>
             </GridItem>
             <GridItem display="flex" alignItems="center">
-              <Input variant="variant" placeholder="Type a keyword to search" />
+              <form onSubmit={handleSubmit(handleSearch)}>
+                <FormControl>
+                  <Input
+                    variant="custom"
+                    isInvalid={errors}
+                    placeholder="Type a keyword to search"
+                    {...register("query", { required: false })}
+                  />
+                </FormControl>
+              </form>
             </GridItem>
           </Grid>
           {groupings.map(({ display, obj, href }) => (

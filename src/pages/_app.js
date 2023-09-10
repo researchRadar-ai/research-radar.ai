@@ -6,6 +6,7 @@ import { globalTheme } from '../styles/ChakraTheme'
 export default function App({ Component, pageProps }) {
   const [project, setProject] = useState(null)
   const [paper, setPaper] = useState(null)
+  const [query, setQuery] = useState('')
 
   return (<ChakraProvider theme={globalTheme}>
     <Component
@@ -13,6 +14,8 @@ export default function App({ Component, pageProps }) {
       setProject={setProject}
       paper={paper}
       setPaper={setPaper}
+      query={query}
+      setQuery={setQuery}
       {...pageProps}
     />
   </ChakraProvider>);
