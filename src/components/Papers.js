@@ -45,19 +45,37 @@ export default function Papers({ project, pg, display, query }) {
     }
     else if (pg === "Query") {
       console.log('<------', query);
-      fetch('/api/search', {
+    
+      // Construct the query parameters string
+      let params = new URLSearchParams({
+        "project_id": project !== null ? project.id : null,
+        "query": query,
+      });
+    
+      fetch('/api/search?' + params.toString(), {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
+        }
+      })
+      .then(response => response.json())
+      .then(data => setPapers(data));
+    }
+    else if (pg === "Recommended"){
+      fetch('/api/project/list_papers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
         },
-        params: JSON.stringify({
-          project_id: project !== null ? project.id : null,
-          query,
+        body: JSON.stringify({
+          project_id: project.id,
+          type: 'recommend',
         }),
       })
         .then(response => response.json())
         .then(data => setPapers(data));
     }
+    
   }, []);
   const [currentPage, setCurrentPage] = useState(1);
 
