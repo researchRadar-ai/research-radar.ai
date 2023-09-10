@@ -1,9 +1,11 @@
 import Error from 'next/error'
 import NextImage from 'next/image'
+import NextLink from 'next/link'
 import { useRouter } from 'next/navigation'
 import {
   Button, Heading, VStack, Grid, GridItem, Card, CardHeader, CardBody, Flex, Box,
-  Input, HStack
+  Input, HStack, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator,
+  Link
 } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
 import Header from '../components/Header'
@@ -31,12 +33,12 @@ const text = {
 const recommended = [text, text, text, text, text]
 const saved = [text, text, text, text, text]
 const toRead = [text, text, text, text, text]
-const groupings = [{ display: 'Your Recommended Articles', obj: recommended},
-{ display: 'Your Saved Articles', obj: saved },
-{ display: 'Your To-Read Articles', obj: toRead }]
+const groupings = [{ display: 'Your Recommended Articles', obj: recommended, href: '/recommended'},
+{ display: 'Your Saved Articles', obj: saved, href: '/saved' },
+{ display: 'Your To-Read Articles', obj: toRead, href: '/to-read' }]
 
 
-export default function Project({ project, setProject }) {
+export default function Project({ project }) {
   if (project == null) return (<Error statusCode={400} />)
   const router = useRouter()
 
@@ -44,6 +46,14 @@ export default function Project({ project, setProject }) {
     <main>
       <Header />
       <VStack px="5%" py={8} spacing={6} bg="#FEFCFB">
+        <Breadcrumb w="100%">
+          <BreadcrumbItem>
+            <BreadcrumbLink as="button" onClick={() => router.back()}>All</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbItem isCurrentPage>
+            <BreadcrumbLink as="button" disabled>{project.name}</BreadcrumbLink>
+          </BreadcrumbItem>
+        </Breadcrumb>
         <Grid w="100%" templateColumns="6fr 4fr">
           <GridItem>
             <Heading as="h2" fontSize="48px">{project.name}</Heading>
@@ -52,11 +62,11 @@ export default function Project({ project, setProject }) {
             <Input placeholder="Type a keyword to search" />
           </GridItem>
         </Grid>
-        {groupings.map(({ display, obj }) => (
+        {groupings.map(({ display, obj, href }) => (
           <VStack w="100%" spacing={2} key={display} display="flex" justifyContent="start">
             <Flex w="100%" justifyContent="space-between">
-              <Heading as="h3" alignSelf="start" color="#034078">{display}</Heading>
-              <Button>View All</Button>
+              <Heading as="h3" alignSelf="start" color="#034078" fontFamily="'Yantramanav', sans-serif">{display}</Heading>
+              <Link href={href} as={NextLink}>View All</Link>
             </Flex>
             <Grid
               w="100%"
@@ -89,7 +99,7 @@ export default function Project({ project, setProject }) {
             ))}
             </Grid>
           </VStack>))}
-        <Button onClick={() => { setProject(null); router.back() }}>Back</Button>
+        <Button onClick={() => { router.back() }}>Back</Button>
       </VStack>
     </main>
   )

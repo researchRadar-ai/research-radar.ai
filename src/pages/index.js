@@ -21,13 +21,14 @@ const projects = [{
   imgUrl: aiImg,
 }]
 
-export default function Home({ setProject }) {
+export default function Home({ project, setProject }) {
   const router = useRouter()
 
   return (
     <main>
       <Header />
-      <Grid px="5%" py={12} templateColumns="repeat(3, 1fr)" templateRows="400px" autoRows="400px" bg="#FEFCFB">
+      <Heading pt={6} as="h2" fontSize="48px" px="5%">Your Research Projects</Heading>
+      <Grid px="5%" pb={12} templateColumns="repeat(3, 1fr)" templateRows="400px" autoRows="400px" bg="#FEFCFB">
         {projects.map(({ id, name, imgUrl }) => (
           <GridItem key={id} alignItems="center" justifyContent="center" display="flex">
             <Card
@@ -42,7 +43,7 @@ export default function Home({ setProject }) {
                     <NextImage src={imgUrl} alt={name} fill />
                   </GridItem>
                   <GridItem display="flex" alignItems="center">
-                    <Heading as="h3">{name}</Heading>
+                    <Heading as="h3" fontFamily="'Yantramanav', sans-serif" color="#034078">{name}</Heading>
                   </GridItem>
                 </Grid>
               </CardBody>

@@ -1,4 +1,4 @@
-import { Circle, Flex, Heading } from '@chakra-ui/react'
+import { Circle, Flex, Heading, Avatar } from '@chakra-ui/react'
 
 export default function Header() {
   return (
@@ -14,7 +14,7 @@ export default function Header() {
       <Heading as="h1" fontFamily="'Delius Swash Caps', cursive" fontSize="56px" color="#1282A2">
         Research Radar
       </Heading>
-      <Circle size="50px" bg="gray.400" />
+      <Avatar size="md" />
     </Flex>
   )
 }
