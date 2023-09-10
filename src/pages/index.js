@@ -6,23 +6,34 @@ import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import { Card, CardBody, Heading, Grid, GridItem, Image } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
-import aiImg from '../../public/AI.jpeg'
-import quantumPhysics from '../../public/QuantumPhysics.jpeg'
+// import aiImg from '../../public/AI.jpeg'
+// import quantumPhysics from '../../public/QuantumPhysics.jpeg'
+import { useEffect, useState } from 'react';
+
 
 const inter = Inter({ subsets: ['latin'] })
 
-const projects = [{
-  id: 1,
-  name: 'Quantum Physics',
-  imgUrl: quantumPhysics,
-}, {
-  id: 2,
-  name: 'Machine Learning',
-  imgUrl: aiImg,
-}]
+// const projects = [{
+//   id: 1,
+//   name: 'Quantum Physics',
+//   imgUrl: quantumPhysics,
+// }, {
+//   id: 2,
+//   name: 'Machine Learning',
+//   imgUrl: "/AI.jpeg",
+// }]
 
 export default function Home({ project, setProject }) {
   const router = useRouter()
+
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    fetch('/api/project/list_projects')
+      .then(response => response.json())  // First, convert the response to JSON
+      .then(data => setProjects(data));   // Then, set the state with that JSON data
+  }, []);
+
 
   return (
     <>
