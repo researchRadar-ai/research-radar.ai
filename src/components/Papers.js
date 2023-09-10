@@ -1,9 +1,12 @@
+import React, { useState } from 'react';
 import Header from '../components/Header'
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/router'
 import {
   VStack, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator,
   Heading, Text, HStack, Button
 } from '@chakra-ui/react'
+
+const PER_PAGE = 5;
 
 const text = {
   id: 123,
@@ -29,6 +32,10 @@ const papers = [text, text, text, text, text, text, text, text, text, text]
 
 export default function Papers({ project, pg, display }) {
   const router = useRouter()
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const totalPages = Math.ceil(papers.length / PER_PAGE);
+  const displayedPapers = papers.slice((currentPage - 1) * PER_PAGE, currentPage * PER_PAGE);
 
   return (
     <main>
@@ -47,7 +54,7 @@ export default function Papers({ project, pg, display }) {
         </Breadcrumb>
         <Heading as="h2" fontSize="48px" w="100%">{display}</Heading>
         <VStack w="100%" spacing={8}>
-          {papers.map(({ id, title, authors, year, journal, abstract }) => (
+          {displayedPapers.map(({ id, title, authors, year, journal, abstract }) => (
             <VStack w="100%" spacing={4} key={id}>
               <Heading as="h3" color="#034078" fontFamily="'Yantramanav', sans-serif" w="100%">{title}</Heading>
               <Text w="100%" as='i' color='#0A1128'>{authors}</Text>
@@ -59,6 +66,17 @@ export default function Papers({ project, pg, display }) {
               </HStack>
             </VStack>
           ))}
+          <HStack spacing={4} mt={4}>
+          {Array.from({ length: totalPages }).map((_, idx) => (
+            <Button 
+              key={idx} 
+              onClick={() => setCurrentPage(idx + 1)}
+              variant={idx + 1 === currentPage ? "outline" : "ghost"}
+            >
+              {idx + 1}
+            </Button>
+          ))}
+        </HStack>
         </VStack>
       </VStack>
     </main>
