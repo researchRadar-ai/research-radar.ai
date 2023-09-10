@@ -48,34 +48,56 @@ export default function Project({ project }) {
 
   useEffect(() => {
     const fetchSavedData = async () => {
-      const savedData = await fetch('/api/projects/list_papers', {
+      const response = await fetch('/api/project/list_papers', {
+        method: 'POST', 
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({
           project_id: project.id,
           type: 'saved',
         }),
       });
-      await data.json();
+      return response.json();
     };
-
+  
     const fetchToReadData = async () => {
-      const toReadData = await fetch('/api/projects/list_papers', {
+      const response = await fetch('/api/project/list_papers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({
           project_id: project.id,
           type: 'toread',
         }),
       });
-      await data.json();
+      console.log('-----> response: ', response);
+      return response.json();
     };
-
-
-    const [toReadData, savedData] = Promise.all(fetchToReadData, fetchSavedData)
-      .catch(e => console.log(e));
-    setToRead(toReadData);
-    setSaved(savedData);
-    setGrouping([{ display: 'Your Recommended Articles', obj: recommended, href: '/recommended'},
-      { display: 'Your Saved Articles', obj: saved, href: '/saved' },
-      { display: 'Your To-Read Articles', obj: toRead, href: '/to-read' }])
+  
+    (async () => {
+      try {
+        const [toReadData, savedData] = await Promise.all([fetchToReadData(), fetchSavedData()]);
+        setToRead(toReadData);
+        setSaved(savedData);
+        console.log('-----> saved: ', savedData);
+        console.log('-----> toRead: ', toReadData);
+      
+      } catch(e) {
+        console.log(e);
+      }
+    })();
   }, []);
+
+  useEffect(() => {
+    setGroupings([
+      { display: 'Your Recommended Articles', obj: recommended, href: '/recommended'},
+      { display: 'Your Saved Articles', obj: saved, href: '/saved' },
+      { display: 'Your To-Read Articles', obj: toRead, href: '/to-read' }
+    ]);
+    console.log('-----> grouping: ', groupings);
+  }, [saved, toRead]);
 
 
   return (
@@ -144,7 +166,7 @@ export default function Project({ project }) {
               ))}
               </Grid>
             </VStack>))}
-          <Button variant="brightBg" onClick={() => { router.back() }}>Back</Button>
+          <Button variant="mdDarkFont" onClick={() => { router.back() }}>Back</Button>
         </VStack>
       </main>
     </>

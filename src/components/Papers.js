@@ -6,6 +6,7 @@ import {
   VStack, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator,
   Heading, Text, HStack, Button
 } from '@chakra-ui/react'
+import { useEffect, useState } from 'react'
 
 const PER_PAGE = 5;
 
@@ -29,31 +30,43 @@ const text = {
   urna. Maecenas pharetra convallis posuere morbi leo urna molestie at. Leo urna
   molestie at elementum eu facilisis.`
 }
-
-const text2 = {
-  id: 321,
-  title: 'TEST! HELLO WORLD',
-  authors: 'No name author, No name author, No name author, No name author',
-  year: 2023,
-  journal: 'Super prestigious journal',
-  abstract: `Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-  Turpis in eu mi bibendum neque egestas. Diam ut venenatis tellus in metus.
-  Dignissim cras tincidunt lobortis feugiat vivamus. Morbi tincidunt augue
-  interdum velit. Ut enim blandit volutpat maecenas volutpat. Lacus vel
-  facilisis volutpat est velit egestas. Quis enim lobortis scelerisque
-  fermentum dui faucibus in. Volutpat est velit egestas dui id. Nunc consequat
-  interdum varius sit. Ultricies integer quis auctor elit sed vulputate mi sit.
-  Rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui. Dolor magna
-  eget est lorem. Ornare quam viverra orci sagittis eu. Bibendum ut tristique et
-  egestas quis ipsum suspendisse ultrices gravida. Semper eget duis at tellus at
-  urna. Maecenas pharetra convallis posuere morbi leo urna molestie at. Leo urna
-  molestie at elementum eu facilisis.`
-}
-const papers = [text, text, text, text, text, text2, text2, text2, text2, text2]
+// const papers = [text, text, text, text, text, text, text, text, text, text]
 
 export default function Papers({ project, pg, display }) {
   const router = useRouter()
+
+  const [papers, setPapers] = useState([text]); // array of papers
+
+  useEffect(() => {
+    if (pg == "Saved"){
+      fetch('/api/project/list_papers', {
+        method: 'POST', 
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          project_id: project.id,
+          type: 'saved',
+        }),
+      })
+        .then(response => response.json())
+        .then(data => setPapers(data));
+    }
+    else if (pg == "To-Read"){
+      fetch('/api/project/list_papers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          project_id: project.id,
+          type: 'toread',
+        }),
+      })
+        .then(response => response.json())
+        .then(data => setPapers(data));
+    }
+  }, []);
   const [currentPage, setCurrentPage] = useState(1);
 
   const totalPages = Math.ceil(papers.length / PER_PAGE);
@@ -111,6 +124,7 @@ export default function Papers({ project, pg, display }) {
           ))}
         </HStack>
           </VStack>
+          <Button variant="brightBg" onClick={() => { router.back() }}>Back</Button>
         </VStack>
       </main>
     </>
