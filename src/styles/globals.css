@@ -106,3 +106,20 @@ a {
     color-scheme: dark;
   }
 }
+
+button:hover {
+  transform: translate(2px, 2px)
+}
+
+.card {
+  transition: 0.3s !important;
+}
+
+.scrollCards::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollCards {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

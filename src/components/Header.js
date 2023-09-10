@@ -11,7 +11,16 @@ export default function Header() {
       py={4}
       bg="#FEFCFB"
     >
-      <Heading as="h1" fontFamily="'Delius Swash Caps', cursive" fontSize="56px" color="#1282A2">
+      <Heading
+        as="a"
+        fontFamily="'Delius Swash Caps', cursive"
+        fontSize="56px"
+        color="#1282A2"
+        cursor="pointer"
+        _hover={{ opacity: 0.8 }}
+        href="/"
+        alt="Research Radar Logo"
+      >
         Research Radar
       </Heading>
       <Avatar size="md" />
