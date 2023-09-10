@@ -28,7 +28,28 @@ const text = {
   urna. Maecenas pharetra convallis posuere morbi leo urna molestie at. Leo urna
   molestie at elementum eu facilisis.`
 }
-const papers = [text, text, text, text, text, text, text, text, text, text]
+
+const text2 = {
+  id: 321,
+  title: 'TEST! HELLO WORLD',
+  authors: 'No name author, No name author, No name author, No name author',
+  year: 2023,
+  journal: 'Super prestigious journal',
+  abstract: `Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+  Turpis in eu mi bibendum neque egestas. Diam ut venenatis tellus in metus.
+  Dignissim cras tincidunt lobortis feugiat vivamus. Morbi tincidunt augue
+  interdum velit. Ut enim blandit volutpat maecenas volutpat. Lacus vel
+  facilisis volutpat est velit egestas. Quis enim lobortis scelerisque
+  fermentum dui faucibus in. Volutpat est velit egestas dui id. Nunc consequat
+  interdum varius sit. Ultricies integer quis auctor elit sed vulputate mi sit.
+  Rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui. Dolor magna
+  eget est lorem. Ornare quam viverra orci sagittis eu. Bibendum ut tristique et
+  egestas quis ipsum suspendisse ultrices gravida. Semper eget duis at tellus at
+  urna. Maecenas pharetra convallis posuere morbi leo urna molestie at. Leo urna
+  molestie at elementum eu facilisis.`
+}
+const papers = [text, text, text, text, text, text2, text2, text2, text2, text2]
 
 export default function Papers({ project, pg, display }) {
   const router = useRouter()
@@ -53,6 +74,9 @@ export default function Papers({ project, pg, display }) {
           </BreadcrumbItem>
         </Breadcrumb>
         <Heading as="h2" fontSize="48px" w="100%">{display}</Heading>
+        <VStack key={currentPage} px="5%" py={8} spacing={6} bg="#FEFCFB">
+
+        
         <VStack w="100%" spacing={8}>
           {displayedPapers.map(({ id, title, authors, year, journal, abstract }) => (
             <VStack w="100%" spacing={4} key={id}>
@@ -66,6 +90,7 @@ export default function Papers({ project, pg, display }) {
               </HStack>
             </VStack>
           ))}
+          </VStack>
           <HStack spacing={4} mt={4}>
           {Array.from({ length: totalPages }).map((_, idx) => (
             <Button 
