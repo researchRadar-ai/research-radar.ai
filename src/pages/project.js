@@ -161,9 +161,11 @@ export default function Project({ project, setQuery }) {
                 <GridItem h="100%" key={id} alignItems="center" justifyContent="center" display="flex" position="relative"
                 >
                   <Card
+                    className="card"
                     h="100%"
                     w="85%"
                     position="absolute"
+                    _hover={{ transform: 'scale(1.07)', cursor: 'pointer' }}
                   >
                     <CardHeader position="relative">
                       <Heading as="h4" color="#001F54" fontSize="24px" w="90%">{title}</Heading>
@@ -172,7 +174,7 @@ export default function Project({ project, setQuery }) {
                     <CardBody h="100%" overflowY="hidden" mb={8} position="relative">
                       {abstract}
                     </CardBody>
-                    <Button w="max-content" variant="darkBg" position="absolute" bottom={4} left="31%">Read More</Button>
+                    {/* <Button w="max-content" variant="darkBg" position="absolute" bottom={4} left="31%" >Read More</Button> */}
                   </Card>
                 </GridItem>
               ))}

@@ -110,14 +110,14 @@ export default function Papers({ project, pg, display, query }) {
             <Button
               key={idx}
               onClick={() => setCurrentPage(idx + 1)}
-              variant={idx + 1 === currentPage ? "brightBg" : "mdDarkFont"}
+              variant={idx + 1 === currentPage ? "mdLightBg" : "mdDarkFont"}
             >
               {idx + 1}
             </Button>
           ))}
         </HStack>
           </VStack>
-          <Button variant="brightBg" onClick={() => { router.back() }}>Back</Button>
+          <Button variant="mdDarkFont" onClick={() => { router.back() }}>Back</Button>
         </VStack>
       </main>
     </>

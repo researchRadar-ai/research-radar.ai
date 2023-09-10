@@ -32,6 +32,12 @@ const buttonTheme = defineStyleConfig({
       border: 'none',
       borderRadius: '10px',
       px: 8,
+    }),
+    mdLightBg: defineStyle({
+      bg: '#034078',
+      color: 'white',
+      border: 'none',
+      borderRadius: '20px',
     })
   }
 })
