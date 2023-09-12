@@ -6,7 +6,7 @@ Our project was honored to receive the "Best Design Hack" out of 114 total entri
 
 First time only, to install dependencies:
 ```
-npm run dev
+npm install
 ```
 Then:
 ```
@@ -23,10 +23,10 @@ New Project Onboarding
 ![New Project Onboarding](https://i.imgur.com/IpaOYiv.png)
 
 Project Page with project organization, where you can access:
-(1) papers that our ML algorithm has recommended specifically for your project,
-(2) past papers you have saved out of relevance and usefulness,
-as well as (3) papers you have bookmarked for future reading
+  (1) papers that our ML algorithm has recommended specifically for your project,
+  (2) past papers you have saved out of relevance and usefulness,
+  (3) papers you have bookmarked for future reading
 ![Project Page](https://i.imgur.com/D4dNUSG.png)
 
-Papers Page that list out results for your search query, or your saved / to-read papers
-![Papers Page)(https://i.imgur.com/DQScQzH.png)
+Papers Page that list out results for your search query, or your saved and to-read papers
+![Papers Page](https://i.imgur.com/DQScQzH.png)
