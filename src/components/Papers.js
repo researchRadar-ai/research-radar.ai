@@ -112,6 +112,9 @@ export default function Papers({ project, pg, display, query }) {
               key={idx}
               onClick={() => setCurrentPage(idx + 1)}
               variant={idx + 1 === currentPage ? "mdLightBg" : "mdDarkFont"}
+              px={4}
+              w="30px"
+              borderRadius="50%"
             >
               {idx + 1}
             </Button>
