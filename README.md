@@ -1,6 +1,6 @@
 This is the repo for the [Next.js](https://nextjs.org/)-powered frontend of our web application [Research Radar](https://github.com/researchRadar-ai).
 
-Our project was honored to receive the "Best Design Hack" out of 114 total entries at PennApps XXIV, the prestigious collegiate hackathon hosted by the University of Pennsylvania in Fall 2023.
+Our project was honored to receive the **Best Design Hack** out of 114 total entries at PennApps XXIV, the prestigious collegiate hackathon hosted by the University of Pennsylvania in Fall 2023.
 
 ## Startup Script
 
