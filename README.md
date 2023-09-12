@@ -1,39 +1,27 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is the repo for the [Next.js](https://nextjs.org/)-powered frontend of our web application [Research Radar](https://github.com/researchRadar-ai). Our project was honored to receive the "Best Design Hack" out of 114 total entries at PennApps XXIV, the prestigious collegiate hackathon hosted by the University of Pennsylvania in Fall 2023.
 
-## Getting Started
+## Startup Script
 
-First, run the development server:
-
-```bash
+First time only, to install dependencies:
+```
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+```
+Then:
+```
+npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The web application is hosted at [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Screenshots
+User Homepage with project selection to divide up your many research interests for the best personalization
+![User Homepage](https://i.imgur.com/3ARHUhJ.png)
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+New Project Onboarding
+![New Project Onboarding](https://i.imgur.com/IpaOYiv.png)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Project Page with project organization, where you can access (1) papers that our ML algorithm has recommended specifically for your project, (2) past papers you have saved out of relevance and usefulness, as well as (3) papers you have bookmarked for future reading
+![Project Page](https://i.imgur.com/D4dNUSG.png)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# research-radar.ai
+Papers Page that list out results for your search query, or your saved / to-read papers
+![Papers Page)(https://i.imgur.com/DQScQzH.png)
